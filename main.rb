@@ -1,16 +1,33 @@
-arr1 = [1,2,3,4]
-arr2 = [1,4,3,5]
-
 def check_numbers(array1, array2)
   4 - (array1 - array2).length
 end
 
-puts "*" * check_numbers(arr1, arr2)
-
 def check_positions(array1, array2)
-  array1.each_with_index do |a, idx|
-    puts a == array2[idx]
+  array1.count do |a|
+    a == array2[array1.index(a)]
   end
 end
 
-check_positions(arr1, arr2)
+
+
+def pc_play
+  nums = []
+  until nums.length == 4
+    nums << rand(7)
+    nums.uniq
+  end
+  nums
+end
+
+arr1 = pc_play
+arr2 = pc_play
+
+count = 0
+
+until arr1 == arr2
+  arr1 = pc_play
+  arr2 = pc_play
+  puts "*" * check_numbers(arr1, arr2) + "+" * check_positions(arr1, arr2)
+  count += 1
+  puts count
+end
