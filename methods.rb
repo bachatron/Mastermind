@@ -1,8 +1,10 @@
 def player_select
   selection = []
-  until (['1','2','3','4','5','6','7','8'] - selection).length == 4
+  puts "Make your guess:"
+  loop do
     selection = gets.chomp.split("")
-    puts "Wrong input. 4 number from 1 to 8."
+    break if (['1','2','3','4','5','6','7','8'] - selection).length == 4
+    puts "Wrong input. Four numbers from 1 to 8."
   end
   selection
 end
@@ -10,7 +12,7 @@ end
 def pc_select
   array = []
   until array.length == 4
-    array << rand(8)+1
+    array << (rand(8)+1).to_s
     array.uniq!
   end
   array
@@ -26,7 +28,11 @@ def check_positions(array1, array2)
   end
 end
 
-puts pc_select
-puts player_select
+#pc_code = pc_select
 
-#puts "TEST: " + "*" * check_numbers(arr1, arr2) + "+" * check_positions(arr1, arr2)
+#loop do
+  #user_guess = player_select
+  #puts "TEST: " + "*" * check_numbers(pc_code, user_guess) + "+" * check_positions(pc_code, user_guess)
+  #break if user_guess == pc_code
+  #p user_guess
+#end
