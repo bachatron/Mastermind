@@ -1,38 +1,47 @@
-def player_select
+def player_select()
   selection = []
   puts "Make your guess:"
   loop do
     selection = gets.chomp.split("")
-    break if (['1','2','3','4','5','6','7','8'] - selection).length == 4
-    puts "Wrong input. Four numbers from 1 to 8."
+    break if selection.all? { |i| ['1','2','3','4','5','6'].include?(i)} && selection.length == 4
+    #break if (['1','2','3','4','5','6'] - selection).length == 2
+    puts "Wrong input. Four numbers from 1 to 6."
   end
   selection
 end
 
-def pc_select
+def pc_select(repeat=false)
   array = []
   until array.length == 4
-    array << (rand(8)+1).to_s
-    array.uniq!
+    array << (rand(6)+1).to_s
+    array.uniq! if repeat
   end
   array
 end
 
-def check_numbers(array1, array2)
-  4 - (array1 - array2).length
-end
-
-def check_positions(array1, array2)
+def check_positions(array1, array2, order=false)
+  array1, array2 = array1.sort, array2.sort if order
   array1.count do |a|
     a == array2[array1.index(a)]
   end
 end
 
-#pc_code = pc_select
+def check_numbers(array1, array2)
+  4 - (array1 - array2).length
 
-#loop do
-  #user_guess = player_select
-  #puts "TEST: " + "*" * check_numbers(pc_code, user_guess) + "+" * check_positions(pc_code, user_guess)
-  #break if user_guess == pc_code
-  #p user_guess
-#end
+end
+
+
+pc_arr = pc_select
+p "PC: " + pc_arr.to_s
+player_arr = pc_select
+p "PL: " + player_arr.to_s
+
+test = player_arr.select do |i|
+  pc_arr.include?(i)
+end
+
+p test
+
+#p arr1 - arr2
+

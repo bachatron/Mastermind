@@ -8,15 +8,25 @@ class Game
     @turn = 1
     @game_over = false
     @code = pc_select
-  end
+  end 
 
   def play
-    until @turn == 12
+    p @code
+    12.times do
       puts "Turn #{@turn}."
       @turn += 1
       current_select = player_select
-      break if current_select == @code
-      puts "*" * (check_numbers(@code, current_select) - check_positions(@code, current_select)) + "+" * check_positions(@code, current_select)
+      if current_select == @code
+        puts "You win"
+        break
+      elsif @turn == 12
+        puts "You lost. The code was #{@code}."
+        break
+      end
+      guess = check_positions(@code, current_select, true)
+      exact = check_positions(@code, current_select)
+      p guess
+      puts "*" * (guess) + "+" * (exact)
     end
   end
 
